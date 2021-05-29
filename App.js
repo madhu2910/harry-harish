@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text, TextInput, SafeAreaView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StatusBar, SafeAreaView, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
+const numbers = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9],
+]
 
-
-export default function  App () {
-
-   
+export default function Verification() {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -35,46 +37,81 @@ export default function  App () {
        iconHeader: {
            color: "black",
        },
-       
-       inputStyle: {
-        width: '100%',
-        marginBottom: 15,
-        paddingBottom: 15,
-        alignSelf: "center",
-        borderColor: "#ccc",
-        borderBottomWidth: 1
-      },
+       content: {
+           backgroundColor: '#FFFF00',
+           flex: 1,
+           marginTop: 20,
+           paddingHorizontal: 40,
+           paddingTop: 20,
+       },
+       title: {
+           textTransform: 'uppercase',
+           color: '#000000',
+           fontWeight: 'bold',
+           fontSize: 14,
+       },
+       subTitle: {
+           color: '#000000',
+           textAlign: 'center',
+           paddingVertical: 20,
+           fontSize: 20,
+           fontWeight: '600',
 
-      subTitle: {
-        color: '#000000',
-        textAlign: 'center',
-        paddingVertical: 20,
-        fontSize: 20,
-        fontWeight: '600',
+       },
+       otpWrapper: {
+           flexDirection: 'row',
+           marginVertical: 10,
+       },
+       otpButton: {
+           width: 40,
+           height: 60,
+           borderRadius: 40,
+           marginHorizontal: 20,
+           alignItems: 'center',
+           justifyContent: 'center',
+       },
+       textOtp: {
+           fontSize: 25,
+           fontWeight: 'bold',
+       },
+       buttonResend: {
+              fontSize: 14,
+              fontWeight: 'bold',
+              color: '#8a9af8',
+              textTransform: 'uppercase',
+       },
+       buttonVerifyWrapper: {
+           alignItems: 'center',
+           marginVertical: 10,
 
-    },
-       
-       buttonVerifyWrrapper: {
-        alignItems: 'center',
-        marginVertical: 10,
-
-    },
-    buttonVverify: {
-       backgroundColor: '#000000',
-       paddingHorizontal: 30,
-       paddingVertical: 20,
-       width: '100%',
-       alignItems: 'center',
-       borderRadius: 10,
-    },
-    textButtonVeerify: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-    },
-    
-       
+       },
+       buttonVerify: {
+          backgroundColor: '#000000',
+          paddingHorizontal: 30,
+          paddingVertical: 20,
+          width: '100%',
+          alignItems: 'center',
+          borderRadius: 10,
+       },
+       textButtonVerify: {
+           color: '#fff',
+           fontSize: 18,
+           fontWeight: 'bold',
+           textTransform: 'uppercase',
+       },
+       numpadWrapper: {
+           flexDirection: 'row',
+           justifyContent: 'space-around',
+           marginVertical: 20,
+       },
+       numpad: {
+           alignSelf: 'center',
+       },
+       numpadNumber: {
+           fontWeight: 'bold',
+           color: 'grey',
+           fontSize: 24,
+       },
     });
 
     return (
@@ -87,7 +124,7 @@ export default function  App () {
 
         </TouchableOpacity>
         <View>
-        <Text style={styles.headerTitle}>Welcome To Mopedo</Text>
+        <Text style={styles.headerTitle}>OTP Verification</Text>
         </View>
         <View
         style={{
@@ -98,33 +135,92 @@ export default function  App () {
         </View>
         </SafeAreaView>
         
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Mobile. No"
-         
-          onChangeText={(val) => this.updateInputVal(val, 'phonenumber')}
-          
-        />
-
-<View style={styles.content}>
-            <Text style={styles.title}>Note You will recieve 4-digit OTP code on entered mobile number for verification</Text>
+        <View style={styles.content}>
+            <Text style={styles.title}>Enter the OTP send to +9178779661</Text>
             
             </View>
-        
-       
-                  
-                  <View style={styles.buttonVerifyWrrapper}>
-                      <TouchableOpacity style={styles.buttonVverify}>
-                          <Text style={styles.textButtonVeerify}>Get OTP</Text>
-                      </TouchableOpacity>
+            <View style={styles.otpWrapper}>
+                <View
+                 style=
+                 {[
+                     styles.otpButton,
+                     { 
+                         backgroundColor: 'grey',
+                        },
+                  ]}
+                  />
+                    
+                
+                <View
+                 style=
+                 {[
+                     styles.otpButton,
+                     { 
+                         backgroundColor: 'grey',
+                        },
+                  ]}
+                  />
+                    
+                
+                <View
+                 style=
+                 {[
+                     styles.otpButton,
+                     { 
+                         backgroundColor: 'grey',
+                        }
+                  ]}
+                  />
+                    
+                
+                <View
+                 style=
+                 {[
+                     styles.otpButton,
+                     { 
+                         backgroundColor: 'grey',
+                        },
+                  ]}
+                  />
                   </View>
                   
+                  <View style={styles.buttonVerifyWrapper}>
+                      <TouchableOpacity style={styles.buttonVerify}>
+                          <Text style={styles.textButtonVerify}>Verify</Text>
+                      </TouchableOpacity>
+                  </View>
+                  <Text style={styles.subtitle}>
+                 Did not get OTP? Resend SMS
+            </Text>
                     
-              
-                                 
+              <View>
+                  { numbers.map((chunk, index) => {
+                      return (
+                          <View key={index} style={styles.numpadWrapper}>
+                              {chunk.map((number) => {
+                                  return (
+                                      <View key={number} style={styles.numpad}>
+                                          <Text style={styles.numpadNumber}>{number}</Text>
+                                  </View>
+                                  );
+                              
+                                   })}
+                                   </View>
+                                 );
+            
+                                 })}
+                                 <View style={styles.numpadWrapper}>
+                                     <View style={{width: 20}} />
+                                     <View style={styles.numpad}>
+                                     <Text style={styles.numpadNumber}>0</Text>
+                                     </View>
+                                     <View style={styles.numpad}>
+                                         <Icon name="delete"     size={24} style={{color: 'grey'}} />
                                  </View>
-                                 
-                                 
+                                 </View>
+                                 </View>
+                                 </View>
                                  
     );
                                 }
+
