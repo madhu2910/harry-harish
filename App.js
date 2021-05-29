@@ -1,226 +1,150 @@
-import React from 'react';
-import { View, Text, StatusBar, SafeAreaView, TouchableOpacity, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
 
-const numbers = [
-    [1,2,3],
-    [4,5,6],
-    [7,8,9],
-]
 
-export default function Verification() {
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: 35,
-            backgroundColor: "#ffcc00"
-          },
-        
-       
-       header: {
-           flexDirection: 'row',
-           
-           justifyContent: 'space-between',
-           alignItems: 'center',
-           color: '#000000',
-           padding: 20,
-       },
-       headerTitle: {
-           fontSize: 30,
-           fontWeight: 'bold',
-           color: '#000000',
 
-       },
-       iconHeader: {
-           color: "black",
-       },
-       content: {
-           backgroundColor: '#FFFF00',
-           flex: 1,
-           marginTop: 20,
-           paddingHorizontal: 40,
-           paddingTop: 20,
-       },
-       title: {
-           textTransform: 'uppercase',
-           color: '#000000',
-           fontWeight: 'bold',
-           fontSize: 14,
-       },
-       subTitle: {
-           color: '#000000',
-           textAlign: 'center',
-           paddingVertical: 20,
-           fontSize: 20,
-           fontWeight: '600',
+export default class ABOUT extends Component {
+  
+  
+  constructor() {
+    super();
+    this.state = { 
+      displayName: '',
+      email: '', 
+      password: '',
+      phonenumber: '',
+      calender: '',
+      number: '',
+      isLoading: false
+    }
+  }
 
-       },
-       otpWrapper: {
-           flexDirection: 'row',
-           marginVertical: 10,
-       },
-       otpButton: {
-           width: 40,
-           height: 60,
-           borderRadius: 40,
-           marginHorizontal: 20,
-           alignItems: 'center',
-           justifyContent: 'center',
-       },
-       textOtp: {
-           fontSize: 25,
-           fontWeight: 'bold',
-       },
-       buttonResend: {
-              fontSize: 14,
-              fontWeight: 'bold',
-              color: '#8a9af8',
-              textTransform: 'uppercase',
-       },
-       buttonVerifyWrapper: {
-           alignItems: 'center',
-           marginVertical: 10,
+  updateInputVal = (val, prop) => {
+    const state = this.state;
+    state[prop] = val;
+    this.setState(state);
+  }
 
-       },
-       buttonVerify: {
-          backgroundColor: '#000000',
-          paddingHorizontal: 30,
-          paddingVertical: 20,
-          width: '100%',
-          alignItems: 'center',
-          borderRadius: 10,
-       },
-       textButtonVerify: {
-           color: '#fff',
-           fontSize: 18,
-           fontWeight: 'bold',
-           textTransform: 'uppercase',
-       },
-       numpadWrapper: {
-           flexDirection: 'row',
-           justifyContent: 'space-around',
-           marginVertical: 20,
-       },
-       numpad: {
-           alignSelf: 'center',
-       },
-       numpadNumber: {
-           fontWeight: 'bold',
-           color: 'grey',
-           fontSize: 24,
-       },
-    });
+  registerUser = () => {
+    if(this.state.email === '' && this.state.password === '') {
+      Alert.alert('Enter details to signup!')
+    } else {
+      this.setState({
+        isLoading: true,
+      })
+     
+        console.log('User registered successfully!')
+        this.setState({
+          isLoading: false,
+          displayName: '',
+          email: '', 
+          password: ''
+        })
 
+        this.props.navigation.navigate('Login')
+      
+      .catch(error => this.setState({ errorMessage: error.message }))      
+    }
+  }
+
+  render() {
+    if(this.state.isLoading){
+      return(
+        <View style={styles.preloader}>
+          <ActivityIndicator size="large" color="#9E9E9E"/>
+        </View>
+      )
+    }    
     return (
-        <View style={styles.container}>
-       
-        <SafeAreaView>
-        <View style={StyleSheet.header}>
-        <TouchableOpacity> 
-        <Icon name="chevron-left" size={24} style={styles.iconHeader}/>
+      <View style={styles.container}> 
+      
 
-        </TouchableOpacity>
-        <View>
-        <Text style={styles.headerTitle}>OTP Verification</Text>
-        </View>
-        <View
-        style={{
-            width: 40,
-            
-        }}
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Name"
+          value={this.state.displayName}
+          onChangeText={(val) => this.updateInputVal(val, 'displayName')}
+        />      
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Email"
+          value={this.state.email}
+          onChangeText={(val) => this.updateInputVal(val, 'email')}
         />
-        </View>
-        </SafeAreaView>
-        
-        <View style={styles.content}>
-            <Text style={styles.title}>Enter the OTP send to +9178779661</Text>
-            
-            </View>
-            <View style={styles.otpWrapper}>
-                <View
-                 style=
-                 {[
-                     styles.otpButton,
-                     { 
-                         backgroundColor: 'grey',
-                        },
-                  ]}
-                  />
-                    
-                
-                <View
-                 style=
-                 {[
-                     styles.otpButton,
-                     { 
-                         backgroundColor: 'grey',
-                        },
-                  ]}
-                  />
-                    
-                
-                <View
-                 style=
-                 {[
-                     styles.otpButton,
-                     { 
-                         backgroundColor: 'grey',
-                        }
-                  ]}
-                  />
-                    
-                
-                <View
-                 style=
-                 {[
-                     styles.otpButton,
-                     { 
-                         backgroundColor: 'grey',
-                        },
-                  ]}
-                  />
-                  </View>
-                  
-                  <View style={styles.buttonVerifyWrapper}>
-                      <TouchableOpacity style={styles.buttonVerify}>
-                          <Text style={styles.textButtonVerify}>Verify</Text>
-                      </TouchableOpacity>
-                  </View>
-                  <Text style={styles.subtitle}>
-                 Did not get OTP? Resend SMS
-            </Text>
-                    
-              <View>
-                  { numbers.map((chunk, index) => {
-                      return (
-                          <View key={index} style={styles.numpadWrapper}>
-                              {chunk.map((number) => {
-                                  return (
-                                      <View key={number} style={styles.numpad}>
-                                          <Text style={styles.numpadNumber}>{number}</Text>
-                                  </View>
-                                  );
-                              
-                                   })}
-                                   </View>
-                                 );
-            
-                                 })}
-                                 <View style={styles.numpadWrapper}>
-                                     <View style={{width: 20}} />
-                                     <View style={styles.numpad}>
-                                     <Text style={styles.numpadNumber}>0</Text>
-                                     </View>
-                                     <View style={styles.numpad}>
-                                         <Icon name="delete"     size={24} style={{color: 'grey'}} />
-                                 </View>
-                                 </View>
-                                 </View>
-                                 </View>
-                                 
-    );
-                                }
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Password"
+          value={this.state.password}
+          onChangeText={(val) => this.updateInputVal(val, 'password')}
+          maxLength={15}
+          secureTextEntry={true}
+        />   
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="PhoneNumber"
+          value={this.state.phonenumber}
+          onChangeText={(val) => this.updateInputVal(val, 'phonenumber')}
+          
+        />
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Date of Birth"
+          value={this.state.calender}
+          onChangeText={(val) => this.updateInputVal(val, 'calender')}
+          
+        /> 
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Referral Code"
+          value={this.state.number}
+          onChangeText={(val) => this.updateInputVal(val, 'number')}
+        />     
+        <Button
+          color="black"
+          title="Signup"
+          onPress={() => this.registerUser()}
+        />
 
+        <Text 
+          style={styles.loginText}
+          onPress={() => this.props.navigation.navigate('Login')}>
+         
+        </Text>                          
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    padding: 35,
+    backgroundColor: "#ffcc00"
+  },
+  inputStyle: {
+    width: '100%',
+    marginBottom: 15,
+    paddingBottom: 15,
+    alignSelf: "center",
+    borderColor: "#ccc",
+    borderBottomWidth: 1
+  },
+  loginText: {
+    color: 'black',
+    marginTop: 25,
+    textAlign: 'center'
+  },
+  preloader: {
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff'
+  }
+});
