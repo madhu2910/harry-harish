@@ -1,162 +1,168 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator, SafeAreaView } from 'react-native';
+import React from 'react';
+import { View, Text, StatusBar, SafeAreaView, TouchableOpacity, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 
 
-export default class App extends Component {
-  
-  
-  constructor() {
-    super();
-    this.state = { 
-     
-      displayName: '',
-      subject: '',
-      message: '',
-      isLoading: false
-    }
-  }
 
-  updateInputVal = (val, prop) => {
-    const state = this.state;
-    state[prop] = val;
-    this.setState(state);
-  }
-
-  registerUser = () => {
-    if(this.state.name === '' && this.state.subject === '') {
-      Alert.alert('Enter details to signup!')
-    } else {
-      this.setState({
-        isLoading: true,
-      })
-     
-        console.log('User registered successfully!')
-        this.setState({
-          isLoading: false,
-          displayName: '',
-          subject: '', 
-          message: ''
-        })
-
+export default function App() {
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: 35,
+            backgroundColor: 'white'
+          },
         
-      
-      .catch(error => this.setState({ errorMessage: error.message }))      
-    }
-  }
-
-  render() {
-    if(this.state.isLoading){
-      return(
-        <View style={styles.preloader}>
-          <ActivityIndicator size="large" color="#9E9E9E"/>
-        </View>
-      )
-    }    
-    return (
-      <View style={styles.container}>
-         
        
-       <SafeAreaView>
-       <View style={StyleSheet.header}>
-       
-       <View>
-       <Text style={styles.headerTitle}>Have a Question For Mopido? </Text>
-       </View>
-       <View
-       style={{
-           width: 40,
+       header: {
+           flexDirection: 'row',
            
-       }}
-       />
-       </View>
-       </SafeAreaView>
-        
-      
+           justifyContent: 'space-between',
+           alignItems: 'center',
+           color: '#000000',
+           padding: 20,
+       },
+       headerTitle: {
+           fontSize: 30,
+           fontWeight: 'bold',
+           color: '#000000',
 
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Name"
-          value={this.state.displayName}
-          onChangeText={(val) => this.updateInputVal(val, 'displayName')}
-        /> 
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Subject"
-          value={this.state.displayName}
-          onChangeText={(val) => this.updateInputVal(val, 'displayName')}
-        />
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Message"
-          value={this.state.displayName}
-          onChangeText={(val) => this.updateInputVal(val, 'displayName')}
-        />  
-        
-           
-        <Button
-          color="black"
-          title="Submit"
-          onPress={() => this.registerUser()}
-        />
-
-                                
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  
-    container: {
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        padding: 35,
-        backgroundColor: 'white'
-      },
-    
-   
-   header: {
-       flexDirection: 'row',
+       },
+       iconHeader: {
+           color: "black",
+       },
        
-       justifyContent: 'space-between',
+       buttonVerifyWrapper: {
+           alignItems: 'center',
+           marginVertical: 10,
+
+       },
+       buttonVerify: {
+          backgroundColor: '#fff',
+          paddingHorizontal: 50,
+          paddingVertical: 50,
+          width: '100%',
+          alignItems: 'center',
+          borderRadius: 20,
+       },
+       textButtonVerify: {
+           color: '#000000',
+           fontSize: 18,
+           fontWeight: 'bold',
+           textTransform: 'uppercase',
+       },
+        buttonVverifyWrapper: {
+           alignItems: 'center',
+           marginVertical: 10,
+
+       },
+       buttonVerrify: {
+          backgroundColor: '#fff',
+          paddingHorizontal: 50,
+          paddingVertical: 50,
+          width: '100%',
+          alignItems: 'center',
+          borderRadius: 20,
+       },
+       textButttonVerify: {
+           color: '#000000',
+           fontSize: 18,
+           fontWeight: 'bold',
+           textTransform: 'uppercase',
+       },
+        buttonVeerifyWrapper: {
+           alignItems: 'center',
+           marginVertical: 10,
+
+       },
+       buttonVeerify: {
+          backgroundColor: '#fff',
+          paddingHorizontal: 50,
+          paddingVertical: 50,
+          width: '100%',
+          alignItems: 'center',
+          borderRadius: 20,
+       },
+       textButtonVeriify: {
+           color: '#000000',
+           fontSize: 18,
+           fontWeight: 'bold',
+           textTransform: 'uppercase',
+       },
+       buttonVerifyWrrapper: {
+        alignItems: 'center',
+        marginVertical: 10,
+
+    },
+    buttonVverify: {
+       backgroundColor: '#000000',
+       paddingHorizontal: 30,
+       paddingVertical: 20,
+       width: '100%',
        alignItems: 'center',
-       color: '#000000',
-       padding: 20,
-   },
-   headerTitle: {
-       fontSize: 30,
-       fontWeight: 'bold',
-       color: '#000000',
+       borderRadius: 10,
+    },
+    textButtonVeerify: {
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+    },
+    
+       
+    });
 
-   },
+    return (
+        <View style={styles.container}>
+       
+        <SafeAreaView>
+        <View style={StyleSheet.header}>
+        <TouchableOpacity> 
+        <Icon name="chevron-left" size={24} style={styles.iconHeader}/>
 
-   iconHeader: {
-    color: "black",
-},
-
-  inputStyle: {
-    width: '100%',
-    marginBottom: 15,
-    paddingBottom: 15,
-    alignSelf: "center",
-    borderColor: "#ccc",
-    borderBottomWidth: 1
-  },
-  loginText: {
-    color: 'black',
-    marginTop: 25,
-    textAlign: 'center'
-  },
-  preloader: {
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff'
-  }
-});
+        </TouchableOpacity>
+        <View>
+        <Text style={styles.headerTitle}>Refer your friends to Mopido and get rs. 50 each</Text>
+        </View>
+        <View
+        style={{
+            width: 40,
+            
+        }}
+        />
+        </View>
+        </SafeAreaView>
+        
+       
+                  <View style={styles.buttonVerifyWrapper}>
+                      <TouchableOpacity style={styles.buttonVerify}>
+                          <Text style={styles.textButtonVerify}>Current Referral Earn</Text>
+                      </TouchableOpacity>
+                  </View>
+                  <View style={styles.buttonVverifyWrapper}>
+                      <TouchableOpacity style={styles.buttonVerrify}>
+                          <Text style={styles.textButttonVerify}>Link</Text>
+                      </TouchableOpacity>
+                  </View>
+                  <View style={styles.buttonVeerifyWrapper}>
+                      <TouchableOpacity style={styles.buttonVeerify}>
+                          <Text style={styles.textButtonVeriify}>Your Referral Code</Text>
+                      </TouchableOpacity>
+                  </View>
+                  <View style={styles.buttonVeriifyWrrapper}>
+                      <TouchableOpacity style={styles.buttonVverify}>
+                          <Text style={styles.textButtonVeerify}>Share Code</Text>
+                      </TouchableOpacity>
+                  </View>
+                  
+                    
+              
+                                 
+                                 </View>
+                                 
+                                 
+                                 
+    );
+                                }
