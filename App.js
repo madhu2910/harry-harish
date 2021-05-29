@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator, SafeAreaView } from 'react-native';
 
 
-
-export default class ABOUT extends Component {
+export default class App extends Component {
   
   
   constructor() {
     super();
     this.state = { 
+     
       displayName: '',
-      email: '', 
-      password: '',
-      phonenumber: '',
-      calender: '',
-      number: '',
+      subject: '',
+      message: '',
       isLoading: false
     }
   }
@@ -26,7 +23,7 @@ export default class ABOUT extends Component {
   }
 
   registerUser = () => {
-    if(this.state.email === '' && this.state.password === '') {
+    if(this.state.name === '' && this.state.subject === '') {
       Alert.alert('Enter details to signup!')
     } else {
       this.setState({
@@ -37,11 +34,11 @@ export default class ABOUT extends Component {
         this.setState({
           isLoading: false,
           displayName: '',
-          email: '', 
-          password: ''
+          subject: '', 
+          message: ''
         })
 
-        this.props.navigation.navigate('Login')
+        
       
       .catch(error => this.setState({ errorMessage: error.message }))      
     }
@@ -56,7 +53,24 @@ export default class ABOUT extends Component {
       )
     }    
     return (
-      <View style={styles.container}> 
+      <View style={styles.container}>
+         
+       
+       <SafeAreaView>
+       <View style={StyleSheet.header}>
+       
+       <View>
+       <Text style={styles.headerTitle}>Have a Question For Mopido? </Text>
+       </View>
+       <View
+       style={{
+           width: 40,
+           
+       }}
+       />
+       </View>
+       </SafeAreaView>
+        
       
 
         <TextInput
@@ -64,66 +78,64 @@ export default class ABOUT extends Component {
           placeholder="Name"
           value={this.state.displayName}
           onChangeText={(val) => this.updateInputVal(val, 'displayName')}
-        />      
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Email"
-          value={this.state.email}
-          onChangeText={(val) => this.updateInputVal(val, 'email')}
-        />
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Password"
-          value={this.state.password}
-          onChangeText={(val) => this.updateInputVal(val, 'password')}
-          maxLength={15}
-          secureTextEntry={true}
-        />   
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="PhoneNumber"
-          value={this.state.phonenumber}
-          onChangeText={(val) => this.updateInputVal(val, 'phonenumber')}
-          
-        />
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Date of Birth"
-          value={this.state.calender}
-          onChangeText={(val) => this.updateInputVal(val, 'calender')}
-          
         /> 
         <TextInput
           style={styles.inputStyle}
-          placeholder="Referral Code"
-          value={this.state.number}
-          onChangeText={(val) => this.updateInputVal(val, 'number')}
-        />     
+          placeholder="Subject"
+          value={this.state.displayName}
+          onChangeText={(val) => this.updateInputVal(val, 'displayName')}
+        />
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Message"
+          value={this.state.displayName}
+          onChangeText={(val) => this.updateInputVal(val, 'displayName')}
+        />  
+        
+           
         <Button
           color="black"
-          title="Signup"
+          title="Submit"
           onPress={() => this.registerUser()}
         />
 
-        <Text 
-          style={styles.loginText}
-          onPress={() => this.props.navigation.navigate('Login')}>
-         
-        </Text>                          
+                                
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    padding: 35,
-    backgroundColor: "#ffcc00"
-  },
+  
+    container: {
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: 35,
+        backgroundColor: 'white'
+      },
+    
+   
+   header: {
+       flexDirection: 'row',
+       
+       justifyContent: 'space-between',
+       alignItems: 'center',
+       color: '#000000',
+       padding: 20,
+   },
+   headerTitle: {
+       fontSize: 30,
+       fontWeight: 'bold',
+       color: '#000000',
+
+   },
+
+   iconHeader: {
+    color: "black",
+},
+
   inputStyle: {
     width: '100%',
     marginBottom: 15,
